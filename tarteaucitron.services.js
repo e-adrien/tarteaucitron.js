@@ -177,41 +177,41 @@ tarteaucitron.services.aduptech_conversion = {
         tarteaucitron.fallback([IDENTIFIER], "");
 
         for (var i = 0; i < elements.length; i++) {
-            var element = elements[i];  
-                
+            var element = elements[i];
+
             if (!element.getAttribute("advertiserId") || !element.getAttribute("conversionCode")) {
                 continue;
             }
-            
-            var url = CONVERSION_PIXEL_BASE_URL + 
-                "/" + encodeURIComponent(element.getAttribute("advertiserId")) + 
-                "?t=" + encodeURIComponent(element.getAttribute("conversionCode"));   
-            
+
+            var url = CONVERSION_PIXEL_BASE_URL +
+                "/" + encodeURIComponent(element.getAttribute("advertiserId")) +
+                "?t=" + encodeURIComponent(element.getAttribute("conversionCode"));
+
             if (element.getAttribute("price")) {
                 url += "&price=" + encodeURIComponent(element.getAttribute("price"));
             }
-            
+
             if (element.getAttribute("quantity")) {
                 url += "&quantity=" + encodeURIComponent(element.getAttribute("quantity"));
             }
-            
+
             if (element.getAttribute("total")) {
                 url += "&total=" + encodeURIComponent(element.getAttribute("total"));
             }
-            
+
             if (element.getAttribute("orderId")) {
                 url += "&order_id=" + encodeURIComponent(element.getAttribute("orderId"));
             }
-            
+
             if (element.getAttribute("itemNumber")) {
                 url += "&item_number=" + encodeURIComponent(element.getAttribute("itemNumber"));
             }
-            
+
             if (element.getAttribute("description")) {
                 url += "&description=" + encodeURIComponent(element.getAttribute("description"));
             }
 
-            (new Image()).src = url;            
+            (new Image()).src = url;
         }
     }
 };
@@ -1025,10 +1025,12 @@ tarteaucitron.services.gajs = {
             window._gaq.push (['_gat._anonymizeIp']);
         }
 
-        if (tarteaucitron.user.gajsPageView) {
-            window._gaq.push(['_trackPageview, ' + tarteaucitron.user.gajsPageView]);
-        } else {
-            window._gaq.push(['_trackPageview']);
+        if (tarteaucitron.user.gajsPreventPageView !== true) {
+          if (tarteaucitron.user.gajsPageView) {
+              window._gaq.push(['_trackPageview, ' + tarteaucitron.user.gajsPageView]);
+          } else {
+              window._gaq.push(['_trackPageview']);
+          }
         }
 
         tarteaucitron.addScript('//www.google-analytics.com/ga.js', '', function () {
@@ -1068,10 +1070,12 @@ tarteaucitron.services.analytics = {
                 tarteaucitron.user.analyticsPrepare();
             }
 
-            if (tarteaucitron.user.analyticsPageView) {
-                ga('send', 'pageview', tarteaucitron.user.analyticsPageView);
-            } else {
-                ga('send', 'pageview');
+            if (tarteaucitron.user.analyticsPreventPageView !== true) {
+              if (tarteaucitron.user.analyticsPageView) {
+                  ga('send', 'pageview', tarteaucitron.user.analyticsPageView);
+              } else {
+                  ga('send', 'pageview');
+              }
             }
 
             if (typeof tarteaucitron.user.analyticsMore === 'function') {
@@ -1100,7 +1104,12 @@ tarteaucitron.services.gtag = {
         tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + tarteaucitron.user.gtagUa, '', function () {
             window.gtag = function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', tarteaucitron.user.gtagUa);
+
+            if (tarteaucitron.user.gtagInitOptions) {
+              gtag('config', tarteaucitron.user.gtagUa, tarteaucitron.user.gtagInitOptions);
+            } else {
+              gtag('config', tarteaucitron.user.gtagUa);
+            }
 
             if (typeof tarteaucitron.user.gtagMore === 'function') {
                 tarteaucitron.user.gtagMore();
@@ -1175,7 +1184,7 @@ tarteaucitron.services.googlemapssearch = {
                 // url = x.getAttribute("data-url");
                 query = escape(x.getAttribute("data-search")),
                 key = x.getAttribute("data-api-key");
-            
+
             // return '<iframe src="' + url + '" width="' + width + '" height="' + height + '" frameborder="0" scrolling="no" allowtransparency allowfullscreen></iframe>';
             return '<iframe width="' + width +'" height="' + height + '" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q='+query+'&key='+key+'" allowfullscreen></iframe> '
         });
@@ -2358,7 +2367,7 @@ tarteaucitron.services.multiplegtag = {
     "uri": "https://support.google.com/analytics/answer/6004245",
     "needConsent": true,
     "cookies": (function () {
-        
+
         var cookies = ['_ga', '_gat', '_gid', '__utma', '__utmb', '__utmc', '__utmt', '__utmz'];
 
         if (tarteaucitron.user.multiplegtagUa !== undefined) {
@@ -2378,7 +2387,12 @@ tarteaucitron.services.multiplegtag = {
             tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + ua, '', function () {
                 window.gtag = function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', ua);
+
+                if (tarteaucitron.user.multiplegtagInitOptions) {
+                  gtag('config', ua, tarteaucitron.user.multiplegtagInitOptions);
+                } else {
+                  gtag('config', ua);
+                }
             });
         });
     }
@@ -2651,8 +2665,8 @@ tarteaucitron.services.tawkto = {
         window.Tawk_LoadStart=new Date();
 
         tarteaucitron.addScript('https://embed.tawk.to/' + tarteaucitron.user.tawktoId + '/default');
-    } 
-  
+    }
+
 };
 
 // getquanty
