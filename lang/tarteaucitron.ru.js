@@ -1,13 +1,16 @@
 /*global tarteaucitron */
 tarteaucitron.lang = {
     "adblock": "Привет! Этот сайт совершенно открытый и позволяет вам выбрать сервисы третьих лиц, которым вы хотите дать доступ.",
-    "adblock_call": "Пожалуйста дезактивируйте АдБлокер чтобы начать настройку.",
+    "adblockCall": "Пожалуйста дезактивируйте АдБлокер чтобы начать настройку.",
     "reload": "Перезагрузите страницу",
-    
+
+    "siteDisclaimerTitle": "",
+    "siteDisclaimerMessage": "",
+
     "alertBigScroll": "Продолжая прокрутки",
     "alertBigClick": "Если вы продолжаете использовать сайт",
     "alertBig": "вы позволяете сервисы третьих лиц",
-    
+
     "alertBigPrivacy": "Этот сайт использует кукис и позволяет вам контролировать сервисы которые вы хотите активировать",
     "alertSmall": "Настройка сервисов",
     "personalize": "Персонализировать",
@@ -15,7 +18,7 @@ tarteaucitron.lang = {
     "close": "Закрыть",
 
     "privacyUrl": "Политика конфиденциальности",
-    
+
     "all": "Преференция всем сервисам",
 
     "info": "Защитить вашу конфиденциальность",
@@ -37,7 +40,7 @@ tarteaucitron.lang = {
     "newWindow": "(new window)",
     "allowAll": "Allow all cookies",
     "denyAll": "Deny all cookies",
-    
+
     "fallback": "Деактивирован.",
 
     "ads": {

@@ -273,9 +273,7 @@ var tarteaucitron = {
                 html += '<div id="tarteaucitronPremium"></div>';
                 html += '<button id="tarteaucitronBack" onclick="tarteaucitron.userInterface.closePanel();" aria-label="' + tarteaucitron.lang.close + '"></button>';
                 html += '<div id="tarteaucitron" role="dialog" aria-labelledby="dialogTitle">';
-                html += '   <button id="tarteaucitronClosePanel" onclick="tarteaucitron.userInterface.closePanel();">';
-                html += '       ' + tarteaucitron.lang.close;
-                html += '   </button>';
+                html += '   <button id="tarteaucitronClosePanel" onclick="tarteaucitron.userInterface.closePanel();">&#128473;</button>';
                 html += '   <div id="tarteaucitronServices">';
                 html += '      <div class="tarteaucitronLine tarteaucitronMainLine" id="tarteaucitronMainLineOffset">';
                 html += '         <span class="tarteaucitronH1" role="heading" aria-level="h1" id="dialogTitle">'+ tarteaucitron.lang.title + '</span>';
@@ -288,19 +286,8 @@ var tarteaucitron = {
                     html += '   </button>';
                 }
                 html += '         </div>';
-                html += '         <div class="tarteaucitronName">';
-                html += '            <span class="tarteaucitronH2" role="heading" aria-level="h2">' + tarteaucitron.lang.all + '</span>';
-                html += '         </div>';
-                html += '         <div class="tarteaucitronAsk" id="tarteaucitronScrollbarAdjust">';
-                html += '            <button id="tarteaucitronAllAllowed" class="tarteaucitronAllow" onclick="tarteaucitron.userInterface.respondAll(true);">';
-                html += '               &#10003; ' + tarteaucitron.lang.allowAll;
-                html += '            </button> ';
-                html += '            <button id="tarteaucitronAllDenied" class="tarteaucitronDeny" onclick="tarteaucitron.userInterface.respondAll(false);">';
-                html += '               &#10007; ' + tarteaucitron.lang.denyAll;
-                html += '            </button>';
-                html += '         </div>';
                 html += '      </div>';
-                html += '      <div class="tarteaucitronBorder">';
+                html += '      <div id="tarteaucitronServicesList">';
                 html += '         <div class="clear"></div><ul>';
                 for (i = 0; i < cat.length; i += 1) {
                     html += '         <li id="tarteaucitronServicesTitle_' + cat[i] + '" class="tarteaucitronHidden">';
@@ -327,43 +314,71 @@ var tarteaucitron = {
 
                 if (tarteaucitron.parameters.highPrivacy && !tarteaucitron.parameters.AcceptAllCta) {
                     html += '<div id="tarteaucitronAlertBig" class="tarteaucitronAlertBig' + orientation + '">';
+
+                    if (tarteaucitron.lang.siteDisclaimerTitle !== "" && tarteaucitron.lang.siteDisclaimerMessage !== "") {
+                      html += '   <span id="tarteaucitronSiteDisclaimerTitle">';
+                      html += '       ' + tarteaucitron.lang.siteDisclaimerTitle;
+                      html += '   </span>';
+                      html += '   <br />';
+                      html += '   <br />';
+                      html += '   <span id="tarteaucitronSiteDisclaimerMessage">';
+                      html += '       ' + tarteaucitron.lang.siteDisclaimerMessage;
+                      html += '   </span>';
+                      html += '   <br />';
+                    }
+
                     html += '   <span id="tarteaucitronDisclaimerAlert">';
                     html += '       ' + tarteaucitron.lang.alertBigPrivacy;
                     html += '   </span>';
-                    html += '   <button id="tarteaucitronPersonalize" onclick="tarteaucitron.userInterface.openPanel();">';
-                    html += '       ' + tarteaucitron.lang.personalize;
-                    html += '   </button>';
 
+                    html += '   <span id="tarteaucitronDisclaimerButtons">';
+                    html += '      <button id="tarteaucitronPersonalize" onclick="tarteaucitron.userInterface.openPanel();">';
+                    html += '          ' + tarteaucitron.lang.personalize;
+                    html += '      </button>';
                     if (tarteaucitron.parameters.privacyUrl !== "") {
-                        html += '   <button id="tarteaucitronPrivacyUrl" onclick="document.location = tarteaucitron.parameters.privacyUrl">';
-                        html += '       ' + tarteaucitron.lang.privacyUrl;
-                        html += '   </button>';
+                        html += '      <button id="tarteaucitronPrivacyUrl" onclick="document.location = tarteaucitron.parameters.privacyUrl">';
+                        html += '          ' + tarteaucitron.lang.privacyUrl;
+                        html += '      </button>';
                     }
+                    html += '   </span>';
 
                     html += '</div>';
                 } else {
                     html += '<div id="tarteaucitronAlertBig" class="tarteaucitronAlertBig' + orientation + '">';
-                    html += '   <span id="tarteaucitronDisclaimerAlert">';
 
+                    if (tarteaucitron.lang.siteDisclaimerTitle !== "" && tarteaucitron.lang.siteDisclaimerMessage !== "") {
+                      html += '   <span id="tarteaucitronSiteDisclaimerTitle">';
+                      html += '       ' + tarteaucitron.lang.siteDisclaimerTitle;
+                      html += '   </span>';
+                      html += '   <br />';
+                      html += '   <br />';
+                      html += '   <span id="tarteaucitronSiteDisclaimerMessage">';
+                      html += '       ' + tarteaucitron.lang.siteDisclaimerMessage;
+                      html += '   </span>';
+                      html += '   <br />';
+                    }
+
+                    html += '   <span id="tarteaucitronDisclaimerAlert">';
                     if (tarteaucitron.parameters.highPrivacy) {
                         html += '       ' + tarteaucitron.lang.alertBigPrivacy;
                     } else {
                         html += '       ' + tarteaucitron.lang.alertBigClick + ' ' + tarteaucitron.lang.alertBig;
                     }
-
                     html += '   </span>';
-                    html += '   <button id="tarteaucitronPersonalize" onclick="tarteaucitron.userInterface.respondAll(true);">';
-                    html += '       &#10003; ' + tarteaucitron.lang.acceptAll;
-                    html += '   </button>';
-                    html += '   <button id="tarteaucitronCloseAlert" onclick="tarteaucitron.userInterface.openPanel();">';
-                    html += '       ' + tarteaucitron.lang.personalize;
-                    html += '   </button>';
 
+                    html += '   <span id="tarteaucitronDisclaimerButtons">';
+                    html += '      <button id="tarteaucitronPersonalize" onclick="tarteaucitron.userInterface.respondAll(true);">';
+                    html += '          &#10003; ' + tarteaucitron.lang.acceptAll;
+                    html += '      </button>';
+                    html += '      <button id="tarteaucitronCloseAlert" onclick="tarteaucitron.userInterface.openPanel();">';
+                    html += '          ' + tarteaucitron.lang.personalize;
+                    html += '      </button>';
                     if (tarteaucitron.parameters.privacyUrl !== "") {
-                        html += '   <button id="tarteaucitronPrivacyUrl" onclick="document.location = tarteaucitron.parameters.privacyUrl">';
-                        html += '       ' + tarteaucitron.lang.privacyUrl;
-                        html += '   </button>';
+                        html += '      <button id="tarteaucitronPrivacyUrl" onclick="document.location = tarteaucitron.parameters.privacyUrl">';
+                        html += '          ' + tarteaucitron.lang.privacyUrl;
+                        html += '      </button>';
                     }
+                    html += '   </span>';
 
                     html += '</div>';
                     html += '<div id="tarteaucitronPercentage"></div>';
@@ -462,7 +477,7 @@ var tarteaucitron = {
                             html = '<div id="tarteaucitronAlertBig" class="tarteaucitronAlertBig' + orientation + '" style="display:block" role="alert" aria-live="polite">';
                             html += '   <p id="tarteaucitronDisclaimerAlert">';
                             html += '       ' + tarteaucitron.lang.adblock + '<br/>';
-                            html += '       <strong>' + tarteaucitron.lang.adblock_call + '</strong>';
+                            html += '       <strong>' + tarteaucitron.lang.adblockCall + '</strong>';
                             html += '   </p>';
                             html += '   <button id="tarteaucitronPersonalize" onclick="location.reload();">';
                             html += '       ' + tarteaucitron.lang.reload;
@@ -687,12 +702,9 @@ var tarteaucitron = {
         },
         "color": function (key, status) {
             "use strict";
-            var gray = '#808080',
-                greenDark = '#1B870B',
-                greenLight = '#E6FFE2',
-                redDark = '#9C1A1A',
-                redLight = '#FFE2E2',
-                yellowDark = '#FBDA26',
+            var gray = '#717171',
+                green = '#46D12C',
+                red = '#FA481C',
                 c = 'tarteaucitron',
                 nbDenied = 0,
                 nbPending = 0,
@@ -701,16 +713,16 @@ var tarteaucitron = {
                 index;
 
             if (status === true) {
-                tarteaucitron.userInterface.css(key + 'Line', 'borderLeft', '5px solid ' + greenDark);
-                tarteaucitron.userInterface.css(key + 'Allowed', 'backgroundColor', greenDark);
+                tarteaucitron.userInterface.css(key + 'Line', 'borderLeft', '5px solid ' + green);
+                tarteaucitron.userInterface.css(key + 'Allowed', 'backgroundColor', green);
                 tarteaucitron.userInterface.css(key + 'Denied', 'backgroundColor', gray);
 
                 document.getElementById(key + 'Line').classList.add('tarteaucitronIsAllowed');
                 document.getElementById(key + 'Line').classList.remove('tarteaucitronIsDenied');
             } else if (status === false) {
-                tarteaucitron.userInterface.css(key + 'Line', 'borderLeft', '5px solid ' + redDark);
+                tarteaucitron.userInterface.css(key + 'Line', 'borderLeft', '5px solid ' + red);
                 tarteaucitron.userInterface.css(key + 'Allowed', 'backgroundColor', gray);
-                tarteaucitron.userInterface.css(key + 'Denied', 'backgroundColor', redDark);
+                tarteaucitron.userInterface.css(key + 'Denied', 'backgroundColor', red);
 
                 document.getElementById(key + 'Line').classList.remove('tarteaucitronIsAllowed');
                 document.getElementById(key + 'Line').classList.add('tarteaucitronIsDenied');
@@ -732,13 +744,13 @@ var tarteaucitron = {
             tarteaucitron.userInterface.css(c + 'DotRed', 'width', ((100 / sum) * nbDenied) + '%');
 
             if (nbDenied === 0 && nbPending === 0) {
-                tarteaucitron.userInterface.css(c + 'AllAllowed', 'backgroundColor', greenDark);
+                tarteaucitron.userInterface.css(c + 'AllAllowed', 'backgroundColor', green);
                 tarteaucitron.userInterface.css(c + 'AllDenied', 'opacity', '0.4');
                 tarteaucitron.userInterface.css(c + 'AllAllowed', 'opacity', '1');
             } else if (nbAllowed === 0 && nbPending === 0) {
                 tarteaucitron.userInterface.css(c + 'AllAllowed', 'opacity', '0.4');
                 tarteaucitron.userInterface.css(c + 'AllDenied', 'opacity', '1');
-                tarteaucitron.userInterface.css(c + 'AllDenied', 'backgroundColor', redDark);
+                tarteaucitron.userInterface.css(c + 'AllDenied', 'backgroundColor', red);
             } else {
                 tarteaucitron.userInterface.css(c + 'AllAllowed', 'opacity', '0.4');
                 tarteaucitron.userInterface.css(c + 'AllDenied', 'opacity', '0.4');

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Tarte au Citron</title>
+
+	<script>
+		window.LesJours            = { isMobileApplication: false, version: "{{ packageVersion }}" };
+		dataLayer                  = [];
+		tarteaucitronForceLanguage = "fr";
+	</script>
+
+	<script type="text/javascript" src="tarteaucitron.js"></script>
+	<script type="text/javascript">
+		tarteaucitron.init({
+			"hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
+			"cookieName": "tartaucitron", /* Cookie name */
+
+			"orientation": "bottom", /* Banner position (top - bottom) */
+			"showAlertSmall": false, /* Show the small banner on bottom right */
+			"cookieslist": false, /* Show the cookie list */
+
+			"adblocker": false, /* Show a Warning if an adblocker is detected */
+			"AcceptAllCta" : false, /* Show the accept all button when highPrivacy on */
+			"highPrivacy": false, /* Disable auto consent */
+			"handleBrowserDNTRequest": false, /* If Do Not Track == 1, accept all */
+
+			"removeCredit": true, /* Remove credit link */
+			"moreInfoLink": false, /* Show more info link */
+			"useExternalCss": false /* If false, the tarteaucitron.css file will be loaded */
+		});
+	</script>
+</head>
+<body height="10000">
+	<script type="text/javascript">
+		/* Initialize tarteaucitron.js job array */
+		tarteaucitron.job = tarteaucitron.job || [];
+
+		/* Add Google Tag Manager */
+		tarteaucitron.user.googletagmanagerId = 'GTM-P5GRMRT';
+		tarteaucitron.job.push('googletagmanager');
+
+		/* Add Google Analytics (gtag.js) */
+		tarteaucitron.user.gtagUa = 'UA-59581990-1';
+		tarteaucitron.user.gtagInitOptions = { 'send_page_view': false, 'optimize_id': 'GTM-W4WVC25' };
+		tarteaucitron.job.push('gtag');
+
+		/* Add Socials Sharing Services : Twitter & Facebook */
+		tarteaucitron.job.push('twitter');
+		window.fbAsyncInit = function() { FB.init({ appId: '1716167151957741', status: true, version: 'v3.0' }); };
+		tarteaucitron.job.push('facebook');
+
+		/* Add Facebook Pixel */
+		tarteaucitron.user.facebookpixelId = '1415993661766511';
+		tarteaucitron.user.facebookpixelMore = function () { /* fbq('track', 'Purchase', {value: '1.00', currency: 'EUR'}); */ };
+		tarteaucitron.job.push('facebookpixel');
+	</script>
+</body>
+</html>
